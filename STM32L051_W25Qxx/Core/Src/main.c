@@ -20,6 +20,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "spi.h"
+#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -91,18 +92,18 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_SPI1_Init();
+  MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-//  printf("\r\n SPI-W25Qxxx Example \r\n\r\n");
+  printf("\r\n SPI-W25Qxxx Example \r\n\r\n");
 
   /*##-1- Read the device ID  ########################*/
   BSP_W25Qx_Init();
   BSP_W25Qx_Read_ID(ID);
 
-//  printf(" W25Qxxx ID is : 0x%02X 0x%02X \r\n\r\n",ID[0],ID[1]);
+  printf(" W25Qxxx ID is : 0x%02X 0x%02X \r\n\r\n",ID[0],ID[1]);
   /*##-2- Erase Block ##################################*/  
   if(BSP_W25Qx_Erase_Block(0) == W25Qx_OK)
-//      printf(" SPI Erase Block ok\r\n");
-    ;
+      printf(" SPI Erase Block ok\r\n");
   else
       Error_Handler();
   /*##-3- Written to the flash ########################*/
@@ -113,28 +114,24 @@ int main(void)
     rData[i] = 0;
   }
  if(BSP_W25Qx_Write(wData,0x00,0x100)== W25Qx_OK)
-//      printf(" SPI Write ok\r\n");
-    ;
+      printf(" SPI Write ok\r\n");
   else
       Error_Handler();
   /*##-4- Read the flash     ########################*/
 
   if(BSP_W25Qx_Read(rData,0x00,0x100)== W25Qx_OK)
-//      printf(" SPI Read ok\r\n\r\n");
-    ;
+      printf(" SPI Read ok\r\n\r\n");
   else
       Error_Handler();
-//  printf("SPI Read Data : \r\n");
-//  for(i =0;i<0x100;i++)
-//      printf("0x%02X  ",rData[i]);
-//  printf("\r\n\r\n");
+  printf("SPI Read Data : \r\n");
+  for(i =0;i<0x100;i++)
+      printf("0x%02X  ",rData[i]);
+  printf("\r\n\r\n");
   /*##-5- check date          ########################*/   
   if(memcmp(wData,rData,0x100) == 0 )
-//      printf(" W25Q128FV SPI Test OK\r\n");
-    HAL_GPIO_WritePin(Led_Green_GPIO_Port, Led_Green_Pin, GPIO_PIN_SET);
+      printf(" W25Q128FV SPI Test OK\r\n");
   else
-//      printf(" W25Q128FV SPI Test False\r\n");
-    HAL_GPIO_WritePin(Led_Green_GPIO_Port, Led_Green_Pin, GPIO_PIN_RESET);;
+      printf(" W25Q128FV SPI Test False\r\n");
   
   /* USER CODE END 2 */
 
@@ -159,6 +156,7 @@ void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+  RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
   /** Configure the main internal regulator output voltage
   */
@@ -186,6 +184,12 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2;
+  PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
+  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
   }
