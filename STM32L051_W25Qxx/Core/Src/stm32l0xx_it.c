@@ -23,6 +23,8 @@
 #include "stm32l0xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "usart.h"
+#include "W25QXX.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -149,11 +151,20 @@ void USART2_IRQHandler(void)
   /* USER CODE END USART2_IRQn 0 */
   HAL_UART_IRQHandler(&huart2);
   /* USER CODE BEGIN USART2_IRQn 1 */
-
+  while(HAL_UART_GetState(&huart2) != HAL_UART_STATE_READY);
+  while(HAL_UART_Receive_IT(&huart2, Usart2_RxBuf, 1) != HAL_OK);
   /* USER CODE END USART2_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
 
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart)
+{
+  if(huart->Instance == USART2)
+  {
+    BSP_W25Qx_Write(Usart2_RxBuf, WriteAdress, 1);
+    WriteAdress++;
+  }
+}
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

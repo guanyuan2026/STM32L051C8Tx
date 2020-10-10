@@ -265,7 +265,7 @@ uint8_t BSP_W25Qx_Erase_Chip(void)
 {
 	uint8_t cmd[4];
 	uint32_t tickstart = HAL_GetTick();
-	cmd[0] = SECTOR_ERASE_CMD;
+	cmd[0] = CHIP_ERASE_CMD;
 	
 	/* Enable write operations */
 	BSP_W25Qx_WriteEnable();

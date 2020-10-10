@@ -46,7 +46,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+uint32_t WriteAdress = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -133,6 +133,17 @@ int main(void)
   else
       printf(" W25Q128FV SPI Test False\r\n");
   
+  //以下为串口数据进行读写测试
+  if(BSP_W25Qx_Erase_Chip() == W25Qx_OK)
+      printf(" SPI Erase Chip ok\r\n");
+  else
+      Error_Handler();     
+  for(i =0;i<0x100;i ++)
+  {
+    wData[i] = i;
+    rData[i] = 0;
+  }  
+  
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -144,6 +155,23 @@ int main(void)
     /* USER CODE BEGIN 3 */
 //    HAL_Delay(500);
 //    HAL_GPIO_TogglePin(Led_Green_GPIO_Port, Led_Green_Pin);
+    if(WriteAdress > 4)
+    {
+      WriteAdress = 0;
+      if(BSP_W25Qx_Read(rData,0x00,5)== W25Qx_OK)
+          printf(" SPI Read ok\r\n\r\n");
+      else
+          Error_Handler();
+      printf("SPI Read Data : \r\n");
+      for(i =0;i<5;i++)
+          printf("0x%02X  ",rData[i]);
+      printf("\r\n\r\n");
+      
+      if(BSP_W25Qx_Erase_Chip() == W25Qx_OK)
+          printf(" SPI Erase Chip ok\r\n");
+      else
+          Error_Handler();        
+    }
   }
   /* USER CODE END 3 */
 }

@@ -22,6 +22,9 @@
 
 /* USER CODE BEGIN 0 */
 #include <stdio.h>
+
+
+uint8_t Usart2_RxBuf[1];
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart2;
@@ -45,6 +48,8 @@ void MX_USART2_UART_Init(void)
   {
     Error_Handler();
   }
+  
+  HAL_UART_Receive_IT(&huart2, Usart2_RxBuf, 1);
 
 }
 
