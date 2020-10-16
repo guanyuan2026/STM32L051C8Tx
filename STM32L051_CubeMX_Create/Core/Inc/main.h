@@ -64,8 +64,24 @@ void Error_Handler(void);
 #define USB_TX_GPIO_Port GPIOA
 #define USB_RX_Pin GPIO_PIN_3
 #define USB_RX_GPIO_Port GPIOA
+#define NB_RXD_Pin GPIO_PIN_10
+#define NB_RXD_GPIO_Port GPIOB
+#define NB_TXD_Pin GPIO_PIN_11
+#define NB_TXD_GPIO_Port GPIOB
+#define NB_PWRKEY_Pin GPIO_PIN_12
+#define NB_PWRKEY_GPIO_Port GPIOB
+#define NB_SWSIM_Pin GPIO_PIN_13
+#define NB_SWSIM_GPIO_Port GPIOB
+#define NB_PSMEINT_Pin GPIO_PIN_14
+#define NB_PSMEINT_GPIO_Port GPIOB
+#define NB_PWREN_Pin GPIO_PIN_15
+#define NB_PWREN_GPIO_Port GPIOB
+#define Led_Red_Pin GPIO_PIN_3
+#define Led_Red_GPIO_Port GPIOB
 #define Led_Green_Pin GPIO_PIN_4
 #define Led_Green_GPIO_Port GPIOB
+#define NB_RI_Pin GPIO_PIN_5
+#define NB_RI_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
