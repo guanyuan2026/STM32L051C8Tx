@@ -76,12 +76,17 @@ void Error_Handler(void);
 #define NB_PSMEINT_GPIO_Port GPIOB
 #define NB_PWREN_Pin GPIO_PIN_15
 #define NB_PWREN_GPIO_Port GPIOB
-#define Led_Red_Pin GPIO_PIN_3
-#define Led_Red_GPIO_Port GPIOB
-#define Led_Green_Pin GPIO_PIN_4
-#define Led_Green_GPIO_Port GPIOB
+#define LED_RED_Pin GPIO_PIN_3
+#define LED_RED_GPIO_Port GPIOB
+#define LED_GREEN_Pin GPIO_PIN_4
+#define LED_GREEN_GPIO_Port GPIOB
 #define NB_RI_Pin GPIO_PIN_5
 #define NB_RI_GPIO_Port GPIOB
+#define POWER_ON_Pin GPIO_PIN_6
+#define POWER_ON_GPIO_Port GPIOB
+#define SW_DET_Pin GPIO_PIN_7
+#define SW_DET_GPIO_Port GPIOB
+#define SW_DET_EXTI_IRQn EXTI4_15_IRQn
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
