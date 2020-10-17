@@ -76,6 +76,15 @@ void Error_Handler(void);
 #define NB_PSMEINT_GPIO_Port GPIOB
 #define NB_PWREN_Pin GPIO_PIN_15
 #define NB_PWREN_GPIO_Port GPIOB
+#define FIG_TOUCH_OUT_Pin GPIO_PIN_8
+#define FIG_TOUCH_OUT_GPIO_Port GPIOA
+#define FIG_TOUCH_OUT_EXTI_IRQn EXTI4_15_IRQn
+#define FIG_UART_RX_Pin GPIO_PIN_9
+#define FIG_UART_RX_GPIO_Port GPIOA
+#define FIG_UART_TX_Pin GPIO_PIN_10
+#define FIG_UART_TX_GPIO_Port GPIOA
+#define FIG_PWREN_Pin GPIO_PIN_11
+#define FIG_PWREN_GPIO_Port GPIOA
 #define LED_RED_Pin GPIO_PIN_3
 #define LED_RED_GPIO_Port GPIOB
 #define LED_GREEN_Pin GPIO_PIN_4
