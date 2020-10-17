@@ -58,6 +58,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define BAT_TEST_Pin GPIO_PIN_0
+#define BAT_TEST_GPIO_Port GPIOA
 #define FLASH_CS_Pin GPIO_PIN_1
 #define FLASH_CS_GPIO_Port GPIOA
 #define USB_TX_Pin GPIO_PIN_2
