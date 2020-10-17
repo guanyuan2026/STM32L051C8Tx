@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * File Name          : USART.h
+  * File Name          : IWDG.h
   * Description        : This file provides code for the configuration
-  *                      of the USART instances.
+  *                      of the IWDG instances.
   ******************************************************************************
   * @attention
   *
@@ -17,8 +17,8 @@
   ******************************************************************************
   */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __usart_H
-#define __usart_H
+#ifndef __iwdg_H
+#define __iwdg_H
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -30,26 +30,22 @@
 
 /* USER CODE END Includes */
 
-extern UART_HandleTypeDef hlpuart1;
-extern UART_HandleTypeDef huart1;
-extern UART_HandleTypeDef huart2;
+extern IWDG_HandleTypeDef hiwdg;
 
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
 
-void MX_LPUART1_UART_Init(void);
-void MX_USART1_UART_Init(void);
-void MX_USART2_UART_Init(void);
+void MX_IWDG_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-extern uint8_t Usart2_RxBuf[];
+
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
 }
 #endif
-#endif /*__ usart_H */
+#endif /*__ iwdg_H */
 
 /**
   * @}
