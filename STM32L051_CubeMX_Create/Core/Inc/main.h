@@ -87,6 +87,8 @@ void Error_Handler(void);
 #define FIG_UART_TX_GPIO_Port GPIOA
 #define FIG_PWREN_Pin GPIO_PIN_11
 #define FIG_PWREN_GPIO_Port GPIOA
+#define BUZZER_Pin GPIO_PIN_15
+#define BUZZER_GPIO_Port GPIOA
 #define LED_RED_Pin GPIO_PIN_3
 #define LED_RED_GPIO_Port GPIOB
 #define LED_GREEN_Pin GPIO_PIN_4
