@@ -19,9 +19,11 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "adc.h"
 #include "iwdg.h"
 #include "usart.h"
 #include "spi.h"
+#include "tim.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -72,6 +74,8 @@ int main(void)
   uint8_t rData[0x100];
   uint32_t i;
   uint8_t ID[2];
+  
+  uint16_t ADC_Value;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -96,10 +100,16 @@ int main(void)
   MX_USART2_UART_Init();
   MX_LPUART1_UART_Init();
   MX_USART1_UART_Init();
-  MX_IWDG_Init();
+//  MX_IWDG_Init();
+  MX_ADC_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  printf("123");
-  while(1);
+//  printf("123");
+//  while(1);
+
+
+  HAL_ADCEx_Calibration_Start(&hadc, ADC_SINGLE_ENDED);    //AD校准
+
  if(HAL_GPIO_ReadPin(SW_DET_GPIO_Port,SW_DET_Pin) == GPIO_PIN_SET)
   {
 //    POWER_GPIO_Init();
@@ -115,7 +125,27 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-      HAL_Delay(500);
+      HAL_Delay(1000);
+    
+     HAL_ADC_Start(&hadc);     //启动ADC转换
+     HAL_ADC_PollForConversion(&hadc, 50);   //等待转换完成，50为最大等待时间，单位为ms
+     
+     
+     if(HAL_IS_BIT_SET(HAL_ADC_GetState(&hadc), HAL_ADC_STATE_REG_EOC))
+     {
+      ADC_Value = HAL_ADC_GetValue(&hadc);   //获取AD值
+
+      printf("ADC1 Reading : %d \r\n",ADC_Value);
+      printf("PA3 True Voltage value : %.4f \r\n",ADC_Value*3.3f/4096*1.53);
+      printf("Z小旋测试\r\n");
+    }
+     
+    HAL_ADC_Stop(&hadc);
+     
+//    HAL_Delay(1000);
+//    HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+//    HAL_Delay(1000);
+//    HAL_TIM_PWM_Stop(&htim2,TIM_CHANNEL_1);
     
 //    HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
     
